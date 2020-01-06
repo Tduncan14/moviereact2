@@ -1,6 +1,33 @@
 import React,{Component} from 'react';
 import {Link} from 'react-router-dom';
-import config from './config.js'
+import config from './config.js';
+import styled from 'styled-components';
+
+
+
+const MovieWrapper = styled.div`
+ display:flex;
+ margin:auto auto !important;
+ text-align:center;
+ justify-content:center;
+
+
+
+
+ .card{
+     width:800px;
+ }
+
+ .card img{
+     width:200px;
+     height:200px;
+     border-radius:50%;
+ }
+
+ span{
+     font-weight:bold;
+ }
+`
 
 class Movie extends Component{
 
@@ -31,6 +58,14 @@ class Movie extends Component{
       }
 
 
+      componentWillUnmount(){
+
+        this.setState({
+            movie:{}
+        })
+      }
+
+
 
     render(){
         
@@ -46,11 +81,27 @@ class Movie extends Component{
          console.log(this.props.match)
          console.log(this.state.movie,'movie area')
         return(
-            <div>
+            <MovieWrapper>
+                <div className="card">
                 <h1>
-                 {this.state.movie.title}
+                 {movie.title}
                 </h1>
-            </div>
+                  
+                  <div className="card-content">
+                      <img src={`http://image.tmdb.org/t/p/w300${movie.poster_path}`} alt="movie"/>
+
+                      <p>
+                        {movie.overview}
+                      </p>
+
+                      <p>
+                      <span>Rating :</span>{movie.vote_average}/10
+                      </p>
+                        
+
+                  </div>
+                </div>
+            </MovieWrapper>
         )
     }
 }
